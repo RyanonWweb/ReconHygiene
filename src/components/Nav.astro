@@ -1,0 +1,204 @@
+---
+const navItems = [
+  { label: 'Start Here', href: '/start' },
+  { label: 'Hunts', href: '/hunts' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Guides', href: '/guides' },
+  { label: 'Frameworks', href: '/frameworks' },
+  { label: 'About', href: '/about' },
+];
+
+const currentPath = Astro.url.pathname;
+
+function isActive(href: string) {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+}
+---
+
+<header id="site-nav" class="nav-header">
+  <div class="container nav-inner">
+    <!-- Logo -->
+    <a href="/" class="nav-logo" aria-label="ReconHygiene Home">
+      <span class="logo-mark">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="28" height="28" rx="6" fill="rgba(0,212,255,0.08)" stroke="rgba(0,212,255,0.3)" stroke-width="1"/>
+          <path d="M7 14C7 10.134 10.134 7 14 7V7C17.866 7 21 10.134 21 14V14" stroke="#00d4ff" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="14" cy="14" r="3" fill="#00d4ff" opacity="0.8"/>
+          <path d="M14 11V7M14 17V21" stroke="#00d4ff" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+          <path d="M7 14H3M21 14H25" stroke="#00d4ff" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+        </svg>
+      </span>
+      <span class="logo-text">
+        <span class="logo-brand">Recon</span><span class="logo-accent">Hygiene</span>
+      </span>
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav class="nav-links" aria-label="Primary navigation">
+      {navItems.map(item => (
+        <a
+          href={item.href}
+          class={`nav-link ${isActive(item.href) ? 'nav-link-active' : ''}`}
+          aria-current={isActive(item.href) ? 'page' : undefined}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <!-- CTA + Mobile Toggle -->
+    <div class="nav-actions">
+      <a href="/contact" class="btn btn-outline btn-sm">
+        Get in Touch
+      </a>
+      <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <nav class="mobile-nav">
+      {navItems.map(item => (
+        <a
+          href={item.href}
+          class={`mobile-nav-link ${isActive(item.href) ? 'mobile-nav-link-active' : ''}`}
+        >
+          {item.label}
+        </a>
+      ))}
+      <a href="/contact" class="btn btn-primary" style="margin-top:0.5rem;">Get in Touch</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .nav-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10, 10, 15, 0.85);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    gap: 2rem;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--text);
+    flex-shrink: 0;
+  }
+  .logo-brand { font-weight: 700; font-size: 1.05rem; color: var(--text); }
+  .logo-accent { font-weight: 700; font-size: 1.05rem; color: var(--cyan); }
+  .logo-mark { display: flex; }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex: 1;
+    justify-content: center;
+  }
+  .nav-link {
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.15s, background 0.15s;
+  }
+  .nav-link:hover {
+    color: var(--text);
+    background: var(--surface);
+    opacity: 1;
+  }
+  .nav-link-active {
+    color: var(--cyan);
+    background: var(--cyan-dim);
+  }
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+  }
+  .btn-sm {
+    padding: 7px 16px;
+    font-size: 0.8125rem;
+  }
+  .mobile-menu-btn {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px;
+    cursor: pointer;
+  }
+  .hamburger-line {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: var(--text-dim);
+    border-radius: 1px;
+    transition: all 0.2s ease;
+  }
+  .mobile-menu {
+    display: none;
+    border-top: 1px solid var(--border);
+    animation: fadeInUp 0.2s ease;
+  }
+  .mobile-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem 1.5rem;
+  }
+  .mobile-nav-link {
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.15s, background 0.15s;
+  }
+  .mobile-nav-link:hover, .mobile-nav-link-active {
+    color: var(--cyan);
+    background: var(--cyan-dim);
+    opacity: 1;
+  }
+
+  @media (max-width: 800px) {
+    .nav-links { display: none; }
+    .mobile-menu-btn { display: flex; }
+    .nav-actions .btn-outline { display: none; }
+  }
+  @media (max-width: 800px) {
+    .mobile-menu.is-open { display: block; }
+  }
+</style>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  btn?.addEventListener('click', () => {
+    const isOpen = menu?.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', String(isOpen));
+    if (menu) menu.setAttribute('aria-hidden', String(!isOpen));
+  });
+</script>

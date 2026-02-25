@@ -1,0 +1,61 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+---
+
+<SiteLayout title="Privacy Policy" description="Privacy policy for ReconHygiene.com. We collect minimal data and respect your privacy.">
+  <div class="page-header">
+    <div class="container">
+      <div class="breadcrumb"><a href="/">Home</a> / Privacy</div>
+      <h1 class="page-title">Privacy Policy</h1>
+      <p class="page-sub">Short, clear, and honest. We collect the minimum data necessary to operate this site.</p>
+    </div>
+  </div>
+  <section class="section">
+    <div class="container-narrow prose-dark">
+      <h2>What We Collect</h2>
+      <p>This site collects the following data:</p>
+      <ul>
+        <li><strong>Contact form submissions</strong> — name, email, message (processed via Formspree)</li>
+        <li><strong>Email newsletter signups</strong> — email address only (if voluntarily provided)</li>
+        <li><strong>Analytics</strong> — aggregate page view data only, no personal identifiers, no tracking cookies (via Plausible Analytics)</li>
+      </ul>
+
+      <h2>What We Don't Collect</h2>
+      <ul>
+        <li>No cross-site tracking</li>
+        <li>No fingerprinting</li>
+        <li>No advertising cookies</li>
+        <li>No login or account data</li>
+      </ul>
+
+      <h2>Third-Party Services</h2>
+      <ul>
+        <li><strong>Formspree</strong> — contact and email form processing. Subject to <a href="https://formspree.io/legal/privacy-policy/" target="_blank" rel="noopener noreferrer">Formspree's Privacy Policy</a>.</li>
+        <li><strong>Cloudflare Pages</strong> — hosting and CDN. Subject to <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer">Cloudflare's Privacy Policy</a>.</li>
+        <li><strong>Google Fonts</strong> — font delivery. Typography requests are routed via Google's servers.</li>
+      </ul>
+
+      <h2>Data Retention</h2>
+      <p>Contact form submissions are forwarded to our inbox and not stored on this site. Email signups are retained until you unsubscribe.</p>
+
+      <h2>Your Rights</h2>
+      <p>To request deletion of any data associated with your email address, contact <a href="mailto:privacy@reconhygiene.com">privacy@reconhygiene.com</a>.</p>
+
+      <h2>Contact</h2>
+      <p>Questions about this policy? Email <a href="mailto:privacy@reconhygiene.com">privacy@reconhygiene.com</a>.</p>
+
+      <div class="divider"></div>
+      <p class="policy-updated"><em>Last updated: January 2025</em></p>
+    </div>
+  </section>
+</SiteLayout>
+
+<style>
+  .page-header { border-bottom: 1px solid var(--border); background: var(--surface); padding: 4rem 0 2.5rem; }
+  .breadcrumb { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem; font-family: 'JetBrains Mono', monospace; }
+  .breadcrumb a { color: var(--text-muted); }
+  .breadcrumb a:hover { color: var(--cyan); }
+  .page-title { font-size: 2.25rem; font-weight: 700; margin: 0 0 0.75rem; }
+  .page-sub { color: var(--text-muted); font-size: 0.95rem; max-width: 65ch; line-height: 1.7; margin: 0; }
+  .policy-updated { font-size: 0.82rem; color: var(--text-muted); }
+</style>

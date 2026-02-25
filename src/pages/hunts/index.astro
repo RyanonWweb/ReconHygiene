@@ -1,0 +1,107 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import HuntCard from '../../components/HuntCard.astro';
+import { getCollection } from 'astro:content';
+
+const hunts = (await getCollection('hunts', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const tactics = [...new Set(hunts.map(h => h.data.tactic))];
+---
+
+<SiteLayout
+  title="Threat Hunt Reports"
+  description="Documented threat hunt reports aligned to MITRE ATT&CK. Hypotheses, methodology, tooling, and detection output from real engagements."
+>
+  <!-- Page header -->
+  <div class="page-header">
+    <div class="container">
+      <div class="breadcrumb"><a href="/">Home</a> / Hunts</div>
+      <h1 class="page-title">Threat Hunt Reports</h1>
+      <p class="page-sub">
+        MITRE ATT&CK aligned hunts with documented hypotheses, scoping decisions, tooling, and detection rule output. Each report is a repeatable artifact.
+      </p>
+      <div class="page-meta-strip">
+        <span class="badge badge-cyan">{hunts.length} Reports</span>
+        {tactics.map(t => <span class="tag">{t}</span>)}
+      </div>
+    </div>
+  </div>
+
+  <!-- Hunt grid -->
+  <section class="section">
+    <div class="container">
+      {hunts.length === 0 ? (
+        <div class="empty-state glass">
+          <div class="empty-icon">🔍</div>
+          <h3>Hunt reports coming soon</h3>
+          <p>First reports are in progress. Subscribe below to get notified.</p>
+          <a href="/#email" class="btn btn-outline" style="margin-top:1rem">Subscribe for updates</a>
+        </div>
+      ) : (
+        <div class="content-grid stagger-children">
+          {hunts.map(hunt => <HuntCard hunt={hunt} />)}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Methodology note -->
+  <section class="section-sm" style="padding-top:0">
+    <div class="container">
+      <div class="methodology-note glass">
+        <h3>Hunt Methodology</h3>
+        <p>All reports follow a structured format: <strong>Hypothesis → Scope → Data Sources → Query/Logic → Findings → Detection Output</strong>. Tactics and techniques are mapped to MITRE ATT&CK Enterprise. Where applicable, Sigma rules or KQL detection logic is included.</p>
+      </div>
+    </div>
+  </section>
+</SiteLayout>
+
+<style>
+  .page-header {
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    padding: 4rem 0 2.5rem;
+  }
+  .breadcrumb {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .breadcrumb a { color: var(--text-muted); }
+  .breadcrumb a:hover { color: var(--cyan); }
+  .page-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin: 0 0 0.75rem;
+  }
+  .page-sub {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    max-width: 65ch;
+    line-height: 1.7;
+    margin: 0 0 1.25rem;
+  }
+  .page-meta-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--text-muted);
+  }
+  .empty-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .empty-state h3 { color: var(--text); margin-bottom: 0.5rem; }
+  .methodology-note {
+    padding: 1.75rem;
+    background: linear-gradient(135deg, rgba(0,212,255,0.03), transparent);
+    border-color: rgba(0,212,255,0.1);
+  }
+  .methodology-note h3 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--cyan); margin: 0 0 0.75rem; }
+  .methodology-note p { font-size: 0.875rem; color: var(--text-muted); margin: 0; line-height: 1.7; }
+  .methodology-note strong { color: var(--text); }
+</style>

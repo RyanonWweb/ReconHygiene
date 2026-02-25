@@ -1,0 +1,96 @@
+---
+title: "Threat Hunting Starter Checklist"
+date: 2025-01-25
+summary: "A practical checklist for teams launching their first threat hunt program — covering hypothesis development, data source scoping, tooling, and output documentation."
+category: "Threat Hunting"
+tags: ["checklist", "threat-hunting", "getting-started", "siem"]
+draft: false
+---
+
+This checklist is designed to get a security team from zero to their first documented hunt in one sprint. Repeat this cycle. Build the library.
+
+---
+
+## Pre-Hunt: Setup
+
+- [ ] Define your **hypothesis** — make it specific and testable
+- [ ] Identify the **MITRE ATT&CK tactic/technique** you're hunting
+- [ ] Document your **data sources** (which logs, which SIEM, what retention window)
+- [ ] Define your **scope** (which assets, environments, time window)
+- [ ] Confirm **data availability** — run a quick validation query first
+
+> **Rule:** If you can't write down your hypothesis in one sentence, you're not ready to start.
+
+---
+
+## During Hunt: Execution
+
+- [ ] Start with a **baseline query** to understand normal behavior
+- [ ] Profile volume, frequency, and statistical outliers
+- [ ] Pivot on interesting artifacts (process names, hashes, IPs, user accounts)
+- [ ] Document **every query** you run — copy/paste into a running log
+- [ ] Note **dead ends** — negative findings are valid and reusable
+- [ ] Tag anything suspicious for triage: host, timestamp, artifact
+
+---
+
+## Post-Hunt: Documentation
+
+- [ ] Write the **hunt report** (Hypothesis → Scope → Queries → Findings)
+- [ ] Classify findings: True Positive / False Positive / Inconclusive
+- [ ] If True Positive: escalate per IR procedures
+- [ ] Convert best query into a **detection rule** (Sigma, KQL, SPL)
+- [ ] Submit detection rule to your SIEM rule library
+- [ ] Schedule the hunt for re-execution (monthly or on threat intel trigger)
+
+---
+
+## Tooling Baseline
+
+You need at minimum:
+| Tool | Purpose |
+|---|---|
+| SIEM (Splunk/Sentinel/Elastic) | Query execution, log search |
+| EDR (CrowdStrike/Defender/SentinelOne) | Endpoint process/network telemetry |
+| MITRE ATT&CK Navigator | Technique mapping and coverage tracking |
+| Sigma | Vendor-agnostic detection rule format |
+| Git repo | Hunt report version control |
+
+---
+
+## Common Beginner Mistakes
+
+1. **Hunting without a hypothesis** — aimless log searching ≠ threat hunting
+2. **Not documenting queries** — you'll need to rerun them next month
+3. **Stopping at "nothing found"** — document it as a negative; baseline it
+4. **Skipping detection rule creation** — the hunt wasn't complete if you didn't codify what you learned
+5. **No peer review** — always have a second set of eyes on true positives before escalation
+
+---
+
+## Template: Hunt Report Header
+
+```markdown
+# Hunt Report: [Title]
+**Date:** YYYY-MM-DD  
+**Analyst:** [Name]  
+**Tactic:** [MITRE Tactic]  
+**Technique:** [T-Number — Name]  
+
+## Hypothesis
+If [condition], then [indicator] will appear in [data source].
+
+## Scope
+- Data source: [SIEM + log type]
+- Timeframe: [start] to [end]
+- Asset coverage: [environment description]
+
+## Queries
+[SPL/KQL/query here]
+
+## Findings
+[Description or "No indicators observed"]
+
+## Detection Output
+[Sigma rule or "No rule created — negative hunt"]
+```

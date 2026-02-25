@@ -1,0 +1,303 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { getCollection } from 'astro:content';
+
+const hunts = (await getCollection('hunts', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 2);
+const guides = (await getCollection('guides', ({ data }) => !data.draft))
+  .slice(0, 2);
+const frameworks = (await getCollection('frameworks', ({ data }) => !data.draft))
+  .slice(0, 1);
+const projects = (await getCollection('projects', ({ data }) => !data.draft))
+  .slice(0, 2);
+
+function cleanSlug(id: string) { return id.replace(/\.mdx?$/, ''); }
+---
+
+<SiteLayout
+  title="Start Here"
+  description="Guided paths for recruiters, hiring managers, and small teams exploring ReconHygiene — threat hunting artifacts and security advisory services."
+>
+  <div class="page-header">
+    <div class="container">
+      <div class="breadcrumb"><a href="/">Home</a> / Start Here</div>
+      <h1 class="page-title">Start Here</h1>
+      <p class="page-sub">Not sure where to begin? Pick your path — each route shows the most relevant artifacts for your context.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container start-grid">
+
+      <!-- Path 1: Recruiters -->
+      <div class="path-card glass">
+        <div class="path-header">
+          <span class="path-icon">📄</span>
+          <div>
+            <h2 class="path-title">For Recruiters</h2>
+            <p class="path-subtitle">Quick overview of skills, targets, and proof points</p>
+          </div>
+        </div>
+
+        <div class="path-body">
+          <div class="proof-block">
+            <h3 class="proof-label">Target Role</h3>
+            <div class="proof-tags">
+              <span class="badge badge-cyan">2210 / ISSO</span>
+              <span class="badge badge-cyan">Threat Hunter</span>
+              <span class="badge badge-cyan">Cloud Security Eng</span>
+            </div>
+          </div>
+
+          <div class="proof-block">
+            <h3 class="proof-label">Artifacts that prove it</h3>
+            <ul class="proof-list">
+              {hunts.map(h => (
+                <li>
+                  <a href={`/hunts/${cleanSlug(h.id)}`} class="proof-link">
+                    <span class="proof-link-icon">🔍</span>
+                    <span>
+                      <strong>{h.data.title}</strong>
+                      <em>Proves: hypothesis-driven hunting, detection output, MITRE mapping</em>
+                    </span>
+                  </a>
+                </li>
+              ))}
+              {guides.map(g => (
+                <li>
+                  <a href={`/guides/${cleanSlug(g.id)}`} class="proof-link">
+                    <span class="proof-link-icon">📋</span>
+                    <span>
+                      <strong>{g.data.title}</strong>
+                      <em>Proves: documentation discipline, practical knowledge transfer</em>
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <a href="/about" class="btn btn-outline path-cta">Full background →</a>
+        </div>
+      </div>
+
+      <!-- Path 2: Hiring Managers -->
+      <div class="path-card glass">
+        <div class="path-header">
+          <span class="path-icon">🏗️</span>
+          <div>
+            <h2 class="path-title">For Hiring Managers</h2>
+            <p class="path-subtitle">Technical depth — methodology, detection logic, and architecture</p>
+          </div>
+        </div>
+
+        <div class="path-body">
+          <div class="proof-block">
+            <h3 class="proof-label">Recommended reading order</h3>
+            <ol class="proof-list proof-ordered">
+              {hunts.map((h, i) => (
+                <li>
+                  <a href={`/hunts/${cleanSlug(h.id)}`} class="proof-link">
+                    <span class="proof-num">{i + 1}</span>
+                    <span>
+                      <strong>{h.data.title}</strong>
+                      <em>Hunt report — {h.data.technique}</em>
+                    </span>
+                  </a>
+                </li>
+              ))}
+              {projects.map((p, i) => (
+                <li>
+                  <a href={`/projects/${cleanSlug(p.id)}`} class="proof-link">
+                    <span class="proof-num">{hunts.length + i + 1}</span>
+                    <span>
+                      <strong>{p.data.title}</strong>
+                      <em>Case study — {p.data.stack.slice(0, 3).join(', ')}</em>
+                    </span>
+                  </a>
+                </li>
+              ))}
+              {frameworks.map((f, i) => (
+                <li>
+                  <a href={`/frameworks/${cleanSlug(f.id)}`} class="proof-link">
+                    <span class="proof-num">{hunts.length + projects.length + i + 1}</span>
+                    <span>
+                      <strong>{f.data.title}</strong>
+                      <em>Framework — {f.data.standard} alignment</em>
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          <a href="/hunts" class="btn btn-outline path-cta">All hunt reports →</a>
+        </div>
+      </div>
+
+      <!-- Path 3: Small Teams -->
+      <div class="path-card glass">
+        <div class="path-header">
+          <span class="path-icon">🛡️</span>
+          <div>
+            <h2 class="path-title">For Small Teams</h2>
+            <p class="path-subtitle">Advisory scope, services overview, and how to engage</p>
+          </div>
+        </div>
+
+        <div class="path-body">
+          <div class="proof-block">
+            <h3 class="proof-label">Where I can help</h3>
+            <ul class="service-mini-list">
+              <li><span class="sml-dot"></span><strong>Threat Hunt Program</strong> — Build a repeatable, low-friction hunt cycle for a small SOC</li>
+              <li><span class="sml-dot"></span><strong>Cloud Security Review</strong> — AWS posture, IAM, CloudTrail/GuardDuty baseline</li>
+              <li><span class="sml-dot"></span><strong>Detection Engineering</strong> — SIEM rule development, Sigma content, alert tuning</li>
+              <li><span class="sml-dot"></span><strong>NIST / RMF Mapping</strong> — Control gap analysis and documentation support</li>
+            </ul>
+          </div>
+
+          <div class="scope-note">
+            <p>Engagements are <strong>scoped, time-boxed, and NDA-ready</strong>. No production access required unless agreed. Recommendations + documentation only.</p>
+          </div>
+
+          <a href="/contact" class="btn btn-primary path-cta">Advisory Inquiry →</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Bottom orientation strip -->
+  <section class="section-sm" style="padding-top:0">
+    <div class="container">
+      <div class="orient-strip glass">
+        <div class="orient-item">
+          <a href="/hunts" class="orient-title">Hunt Reports</a>
+          <p>MITRE-aligned, documented, detection output included</p>
+        </div>
+        <div class="orient-div"></div>
+        <div class="orient-item">
+          <a href="/projects" class="orient-title">Projects</a>
+          <p>Labs + architecture case studies with outcomes</p>
+        </div>
+        <div class="orient-div"></div>
+        <div class="orient-item">
+          <a href="/guides" class="orient-title">Guides</a>
+          <p>Checklists and short-form practitioner references</p>
+        </div>
+        <div class="orient-div"></div>
+        <div class="orient-item">
+          <a href="/frameworks" class="orient-title">Frameworks</a>
+          <p>NIST, RMF, and control mapping notes</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</SiteLayout>
+
+<style>
+  .page-header { border-bottom: 1px solid var(--border); background: var(--surface); padding: 4rem 0 2.5rem; }
+  .breadcrumb { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem; font-family: 'JetBrains Mono', monospace; }
+  .breadcrumb a { color: var(--text-muted); }
+  .breadcrumb a:hover { color: var(--cyan); }
+  .page-title { font-size: 2.25rem; font-weight: 700; margin: 0 0 0.75rem; }
+  .page-sub { color: var(--text-muted); font-size: 0.95rem; max-width: 65ch; line-height: 1.7; margin: 0; }
+
+  .start-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .path-card { padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .path-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .path-icon { font-size: 1.75rem; flex-shrink: 0; margin-top: 2px; }
+  .path-title { font-size: 1.1rem; font-weight: 700; margin: 0 0 0.2rem; color: var(--text); }
+  .path-subtitle { font-size: 0.82rem; color: var(--text-muted); margin: 0; line-height: 1.5; }
+
+  .path-body { display: flex; flex-direction: column; gap: 1.25rem; flex: 1; }
+
+  .proof-block { display: flex; flex-direction: column; gap: 0.5rem; }
+  .proof-label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin: 0; }
+  .proof-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+  .proof-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.75rem; }
+  .proof-ordered { counter-reset: none; }
+  .proof-link {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .proof-link:hover { border-color: var(--cyan); background: var(--cyan-dim); opacity: 1; }
+  .proof-link-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+  .proof-num {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--cyan-dim); color: var(--cyan);
+    font-size: 0.72rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-family: 'JetBrains Mono', monospace;
+  }
+  .proof-link span:last-child { display: flex; flex-direction: column; gap: 0.1rem; }
+  .proof-link strong { font-size: 0.85rem; color: var(--text); font-weight: 600; }
+  .proof-link em { font-size: 0.75rem; color: var(--text-muted); font-style: normal; }
+
+  .service-mini-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.6rem; }
+  .service-mini-list li { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.85rem; color: var(--text-dim); line-height: 1.5; }
+  .sml-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); flex-shrink: 0; margin-top: 6px; }
+  .service-mini-list strong { color: var(--text); }
+
+  .scope-note {
+    padding: 0.875rem 1rem;
+    background: rgba(110,64,201,0.08);
+    border: 1px solid rgba(110,64,201,0.2);
+    border-radius: 8px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .scope-note strong { color: var(--text); }
+
+  .path-cta { align-self: flex-start; margin-top: auto; }
+
+  /* Orient strip */
+  .orient-strip {
+    display: flex;
+    align-items: stretch;
+    padding: 0;
+    overflow: hidden;
+  }
+  .orient-item {
+    flex: 1;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .orient-item p { font-size: 0.8rem; color: var(--text-muted); margin: 0; line-height: 1.5; }
+  .orient-title { font-size: 0.9rem; font-weight: 700; color: var(--text); text-decoration: none; transition: color 0.15s; }
+  .orient-title:hover { color: var(--cyan); opacity: 1; }
+  .orient-div { width: 1px; background: var(--border); align-self: stretch; }
+
+  @media (max-width: 1000px) { .start-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 680px) {
+    .start-grid { grid-template-columns: 1fr; }
+    .orient-strip { flex-direction: column; }
+    .orient-div { width: 100%; height: 1px; }
+  }
+</style>

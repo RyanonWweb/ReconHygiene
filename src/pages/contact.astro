@@ -1,0 +1,288 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+---
+
+<SiteLayout
+  title="Contact"
+  description="Advisory inquiry and contact form for ReconHygiene. Threat hunting program development, cloud security review, and detection engineering engagements."
+>
+  <div class="page-header">
+    <div class="container">
+      <div class="breadcrumb"><a href="/">Home</a> / Contact</div>
+      <h1 class="page-title">Get in Touch</h1>
+      <p class="page-sub">Advisory engagements, collaboration, or general inquiries. I respond within 2 business days.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container contact-layout">
+
+      <!-- Form -->
+      <div class="contact-form-wrap">
+        <form
+          id="contact-form"
+          action="https://formspree.io/f/xaqdvyej"
+          method="POST"
+          class="contact-form glass"
+          novalidate
+        >
+          <input type="hidden" name="_subject" value="Advisory inquiry — ReconHygiene" />
+
+          <div class="form-group">
+            <label for="name" class="form-label">Name <span class="required">*</span></label>
+            <input
+              id="name"
+              type="text"
+              name="name"
+              class="form-input"
+              placeholder="Your name"
+              required
+              autocomplete="name"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="email" class="form-label">Email <span class="required">*</span></label>
+            <input
+              id="email"
+              type="email"
+              name="email"
+              class="form-input"
+              placeholder="you@company.com"
+              required
+              autocomplete="email"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="org" class="form-label">Organization</label>
+            <input
+              id="org"
+              type="text"
+              name="organization"
+              class="form-input"
+              placeholder="Company or agency (optional)"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="inquiry-goal" class="form-label">Inquiry Goal <span class="required">*</span></label>
+            <select id="inquiry-goal" name="inquiry_goal" class="form-input form-select" required>
+              <option value="" disabled selected>What brings you here?</option>
+              <option value="hiring">Hiring Inquiry</option>
+              <option value="advisory">Advisory Engagement</option>
+              <option value="collaboration">Collaboration / Partnership</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="timeline" class="form-label">Timeline</label>
+              <select id="timeline" name="timeline" class="form-input form-select">
+                <option value="" disabled selected>When do you need this?</option>
+                <option value="asap">ASAP / This week</option>
+                <option value="30d">Within 30 days</option>
+                <option value="60d">60–90 days</option>
+                <option value="exploring">Just exploring</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="focus-system" class="form-label">Focus Area</label>
+              <select id="focus-system" name="focus_system" class="form-input form-select">
+                <option value="" disabled selected>Primary domain?</option>
+                <option value="cloud">Cloud Security</option>
+                <option value="endpoint">Endpoint / EDR</option>
+                <option value="network">Network</option>
+                <option value="grc">GRC / Compliance</option>
+                <option value="all">All of the above</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="message" class="form-label">Message <span class="required">*</span></label>
+            <textarea
+              id="message"
+              name="message"
+              class="form-input form-textarea"
+              placeholder="Brief description of your needs, timeline, and scope..."
+              rows="6"
+              required
+            ></textarea>
+          </div>
+
+          <div class="form-footer">
+            <p class="form-fine">Your data is only used to respond to your inquiry. See <a href="/privacy">Privacy Policy</a>.</p>
+            <button type="submit" class="btn btn-primary" id="submit-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              Send Message
+            </button>
+          </div>
+
+          <div id="form-success" class="form-success" hidden>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Message sent. I'll be in touch within 2 business days.
+          </div>
+        </form>
+      </div>
+
+      <!-- Aside -->
+      <aside class="contact-aside">
+        <div class="aside-card glass">
+          <h3 class="aside-title">Advisory Services</h3>
+          <ul class="service-list">
+            <li>
+              <span class="service-icon">🔍</span>
+              <div>
+                <strong>Threat Hunt Program Dev</strong>
+                <p>Build a repeatable, hypothesis-driven hunt program from scratch for your team.</p>
+              </div>
+            </li>
+            <li>
+              <span class="service-icon">☁️</span>
+              <div>
+                <strong>Cloud Security Review</strong>
+                <p>AWS security posture assessment — IAM, CloudTrail, GuardDuty, and config drift.</p>
+              </div>
+            </li>
+            <li>
+              <span class="service-icon">🛡️</span>
+              <div>
+                <strong>Detection Engineering</strong>
+                <p>SIEM rule development, Sigma content, KQL/SPL tuning, and false-positive reduction.</p>
+              </div>
+            </li>
+            <li>
+              <span class="service-icon">📐</span>
+              <div>
+                <strong>NIST / RMF Gap Analysis</strong>
+                <p>Control mapping, gap analysis, and SSP support for government-adjacent environments.</p>
+              </div>
+            </li>
+          </ul>
+          <div class="advisory-disclaimer">
+            <p>⚠ Advisory engagements are scoped and time-boxed. NDA available on request. No production access required unless explicitly agreed. Recommendations and documentation support only — no guarantee of compliance outcomes.</p>
+          </div>
+        </div>
+
+        <div class="aside-card glass">
+          <h4 class="aside-sub-title">Response SLA</h4>
+          <p class="aside-text">Initial response within <strong>2 business days</strong>. Engagement scoping calls scheduled within 1 week.</p>
+        </div>
+
+        <div class="aside-card glass aside-security">
+          <div class="aside-security-icon">🔒</div>
+          <p class="aside-text">This form is protected against spam. Form data is transmitted securely and not stored on this site. See <a href="/security">Security Policy</a>.</p>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+</SiteLayout>
+
+<style>
+  .page-header { border-bottom: 1px solid var(--border); background: var(--surface); padding: 4rem 0 2.5rem; }
+  .breadcrumb { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem; font-family: 'JetBrains Mono', monospace; }
+  .breadcrumb a { color: var(--text-muted); }
+  .breadcrumb a:hover { color: var(--cyan); }
+  .page-title { font-size: 2.25rem; font-weight: 700; margin: 0 0 0.75rem; }
+  .page-sub { color: var(--text-muted); font-size: 0.95rem; max-width: 65ch; line-height: 1.7; margin: 0; }
+
+  .contact-layout { display: grid; grid-template-columns: 1fr 360px; gap: 3rem; align-items: start; }
+
+  .contact-form { padding: 2rem; display: flex; flex-direction: column; gap: 1.25rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-label { font-size: 0.82rem; font-weight: 600; color: var(--text-dim); letter-spacing: 0.02em; }
+  .required { color: var(--cyan); }
+  .form-input {
+    padding: 10px 14px;
+    background: var(--bg);
+    border: 1px solid var(--border-2);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 0.875rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    font-family: 'Inter', sans-serif;
+    width: 100%;
+  }
+  .form-input:focus {
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 3px var(--cyan-glow);
+  }
+  .form-input::placeholder { color: var(--text-muted); }
+  .form-select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; }
+  .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.875rem; }
+  .advisory-disclaimer {
+    margin-top: 1rem;
+    padding: 0.875rem 1rem;
+    background: rgba(245,158,11,0.06);
+    border: 1px solid rgba(245,158,11,0.2);
+    border-radius: 8px;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .advisory-disclaimer p { margin: 0; }
+  .form-textarea { resize: vertical; min-height: 120px; }
+  .form-footer { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; padding-top: 0.5rem; }
+  .form-fine { font-size: 0.78rem; color: var(--text-muted); margin: 0; }
+  .form-success {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: rgba(34,197,94,0.08);
+    border: 1px solid rgba(34,197,94,0.2);
+    border-radius: 8px;
+    color: var(--success);
+    font-size: 0.875rem;
+  }
+
+  /* Aside */
+  .contact-aside { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 1.25rem; }
+  .aside-card { padding: 1.5rem; }
+  .aside-title { font-size: 1rem; font-weight: 700; color: var(--text); margin: 0 0 1.25rem; }
+  .aside-sub-title { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin: 0 0 0.5rem; }
+  .aside-text { font-size: 0.85rem; color: var(--text-muted); margin: 0; line-height: 1.6; }
+  .service-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1.25rem; }
+  .service-list li { display: flex; gap: 1rem; align-items: flex-start; }
+  .service-icon { font-size: 1.25rem; flex-shrink: 0; margin-top: 2px; }
+  .service-list li strong { display: block; font-size: 0.875rem; color: var(--text); margin-bottom: 0.2rem; }
+  .service-list li p { font-size: 0.8rem; color: var(--text-muted); margin: 0; line-height: 1.5; }
+  .aside-security { background: linear-gradient(135deg, rgba(0,212,255,0.03), transparent); border-color: rgba(0,212,255,0.1); display: flex; align-items: center; gap: 1rem; }
+  .aside-security-icon { font-size: 1.25rem; flex-shrink: 0; }
+
+  @media (max-width: 900px) { .contact-layout { grid-template-columns: 1fr; } .contact-aside { position: static; } }
+</style>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const successMsg = document.getElementById('form-success') as HTMLElement;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' }
+      });
+      if (res.ok) {
+        form.reset();
+        successMsg.hidden = false;
+        submitBtn.style.display = 'none';
+      } else {
+        submitBtn.textContent = 'Error — try again';
+        submitBtn.disabled = false;
+      }
+    } catch {
+      submitBtn.textContent = 'Error — try again';
+      submitBtn.disabled = false;
+    }
+  });
+</script>

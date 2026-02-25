@@ -1,0 +1,8 @@
+Contact: mailto:security@reconhygiene.com
+Expires: 2027-01-01T00:00:00.000Z
+Encryption: https://reconhygiene.com/pgp.txt
+Preferred-Languages: en
+Canonical: https://reconhygiene.com/.well-known/security.txt
+
+# Fingerprint — replace with output of: gpg --fingerprint security@reconhygiene.com
+# Fingerprint: XXXX XXXX XXXX XXXX XXXX  XXXX XXXX XXXX XXXX XXXX

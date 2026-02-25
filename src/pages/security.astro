@@ -1,0 +1,153 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+---
+
+<SiteLayout
+  title="Security Policy"
+  description="Responsible disclosure policy, reporting instructions, and security posture for ReconHygiene.com."
+>
+  <div class="page-header">
+    <div class="container">
+      <div class="breadcrumb"><a href="/">Home</a> / Security</div>
+      <div class="security-badge">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Security Policy
+      </div>
+      <h1 class="page-title">Security & Disclosure Policy</h1>
+      <p class="page-sub">We take security seriously. If you've found a vulnerability in this site, we want to hear from you responsibly.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container-narrow prose-dark">
+
+      <h2>Reporting a Vulnerability</h2>
+      <p>
+        If you believe you've found a security vulnerability in <strong>ReconHygiene.com</strong>, please disclose it responsibly by contacting us directly. We commit to:
+      </p>
+      <ul>
+        <li>Acknowledging receipt of your report within <strong>48 hours</strong></li>
+        <li>Providing a status update within <strong>7 days</strong></li>
+        <li>Working to resolve confirmed vulnerabilities within a reasonable timeframe</li>
+        <li>Crediting reporters who request acknowledgment (in our changelog or disclosure post)</li>
+      </ul>
+
+      <h2>How to Report</h2>
+      <p>
+        Send vulnerability reports to: <a href="mailto:security@reconhygiene.com">security@reconhygiene.com</a>
+      </p>
+      <p>Please include:</p>
+      <ul>
+        <li>Description of the vulnerability</li>
+        <li>Steps to reproduce (proof-of-concept if applicable)</li>
+        <li>Potential impact assessment</li>
+        <li>Any suggested remediation (optional)</li>
+      </ul>
+
+      <h2>Scope</h2>
+      <p>In scope for responsible disclosure:</p>
+      <ul>
+        <li><strong>reconhygiene.com</strong> and all subdomains</li>
+        <li>Contact form security issues</li>
+        <li>Security header configuration issues</li>
+        <li>Content injection or XSS vectors</li>
+      </ul>
+      <p>Out of scope:</p>
+      <ul>
+        <li>Denial of service attacks</li>
+        <li>Social engineering of site operators</li>
+        <li>Physical attacks</li>
+        <li>Third-party services (Formspree, Cloudflare)</li>
+      </ul>
+
+      <h2>Security Posture</h2>
+      <p>This site is designed with security-first principles:</p>
+      <ul>
+        <li>Static site — no server-side database or CMS login endpoints</li>
+        <li>Enforced HTTPS with HSTS preloading</li>
+        <li>Content Security Policy with strict source restrictions</li>
+        <li>X-Frame-Options: DENY</li>
+        <li>X-Content-Type-Options: nosniff</li>
+        <li>Referrer-Policy: strict-origin-when-cross-origin</li>
+        <li>Minimal dependencies, locked package versions</li>
+        <li>Privacy-first analytics (no invasive tracking)</li>
+      </ul>
+
+      <h2>Bug Bounty</h2>
+      <p>
+        This is a personal/professional site and does not currently offer a formal bug bounty. However, significant findings will be acknowledged publicly (with reporter consent) and we will credit your work.
+      </p>
+
+      <h2>PGP Public Key</h2>
+      <p>
+        Sensitive disclosures may be encrypted to the site operator's PGP key. The full ASCII-armored public key is available at
+        <a href="/pgp.txt">/pgp.txt</a>.
+      </p>
+      <div class="pgp-block">
+        <div class="pgp-label">Fingerprint</div>
+        <code class="pgp-fingerprint" id="pgp-fp">XXXX XXXX XXXX XXXX XXXX  XXXX XXXX XXXX XXXX XXXX</code>
+        <button class="pgp-copy" onclick="navigator.clipboard.writeText(document.getElementById('pgp-fp').textContent.trim()); this.textContent='Copied!'" title="Copy fingerprint">Copy</button>
+      </div>
+      <p>Key UID: <code>security@reconhygiene.com</code> — verifiable on <a href="https://keys.openpgp.org" target="_blank" rel="noopener">keys.openpgp.org</a>.</p>
+
+      <h2>Machine-Readable Policy</h2>
+      <p>
+        A machine-readable security.txt file is available at <a href="/.well-known/security.txt">/.well-known/security.txt</a> per RFC 9116.
+      </p>
+
+      <div class="divider"></div>
+      <p class="policy-updated"><em>Last updated: January 2025</em></p>
+
+    </div>
+  </section>
+</SiteLayout>
+
+<style>
+  .page-header { border-bottom: 1px solid var(--border); background: var(--surface); padding: 4rem 0 2.5rem; }
+  .breadcrumb { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem; font-family: 'JetBrains Mono', monospace; }
+  .breadcrumb a { color: var(--text-muted); }
+  .breadcrumb a:hover { color: var(--cyan); }
+  .security-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    background: rgba(34,197,94,0.08);
+    border: 1px solid rgba(34,197,94,0.2);
+    border-radius: 999px;
+    font-size: 0.78rem;
+    color: var(--success);
+    font-weight: 600;
+    margin-bottom: 0.875rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .page-title { font-size: 2.25rem; font-weight: 700; margin: 0 0 0.75rem; }
+  .page-sub { color: var(--text-muted); font-size: 0.95rem; max-width: 65ch; line-height: 1.7; margin: 0; }
+  .policy-updated { font-size: 0.82rem; color: var(--text-muted); }
+  .pgp-block {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 8px;
+    padding: 0.875rem 1rem;
+    margin: 0.75rem 0;
+  }
+  .pgp-label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; flex-shrink: 0; }
+  .pgp-fingerprint { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--cyan); letter-spacing: 0.04em; flex: 1; }
+  .pgp-copy {
+    font-size: 0.72rem;
+    padding: 4px 10px;
+    background: rgba(0,212,255,0.08);
+    border: 1px solid rgba(0,212,255,0.2);
+    border-radius: 6px;
+    color: var(--cyan);
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+  .pgp-copy:hover { background: rgba(0,212,255,0.15); }
+</style>

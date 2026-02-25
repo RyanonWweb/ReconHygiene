@@ -1,0 +1,104 @@
+---
+title: "NIST CSF 2.0 — Practitioner Reference Notes"
+date: 2025-01-22
+summary: "Field notes on NIST Cybersecurity Framework 2.0 — the six functions, core categories, and how they map to practical security operations in federal and enterprise environments."
+standard: "NIST CSF 2.0"
+tags: ["nist", "csf", "framework", "governance", "compliance"]
+draft: false
+---
+
+## What Changed in CSF 2.0
+
+NIST CSF 2.0 (released February 2024) introduced significant updates from version 1.1:
+
+1. **New "GOVERN" function** — Elevated organizational governance to a first-class function
+2. **Expanded audience** — Now explicitly addresses all organizations, not just critical infrastructure
+3. **Supply chain risk** — Integrated throughout as a cross-cutting concern
+4. **Profiles and Tiers** — Refined guidance on implementation target states
+
+---
+
+## The Six Functions
+
+| Function | Purpose | Key Question |
+|---|---|---|
+| **GOVERN** | Set strategy, roles, accountability | Who owns security decisions? |
+| **IDENTIFY** | Understand your assets and risks | What do we have and what's at risk? |
+| **PROTECT** | Implement safeguards | How do we prevent incidents? |
+| **DETECT** | Find events fast | How do we know something is happening? |
+| **RESPOND** | Act when events occur | What do we do when we detect it? |
+| **RECOVER** | Restore and learn | How do we get back to normal? |
+
+---
+
+## GOVERN (New in 2.0)
+
+The GOVERN function establishes the organizational context for cybersecurity risk management. Key categories:
+
+- **GV.OC** — Organizational Context
+- **GV.RM** — Risk Management Strategy
+- **GV.RR** — Roles, Responsibilities, and Authorities
+- **GV.PO** — Policy
+- **GV.OV** — Oversight
+- **GV.SC** — Cybersecurity Supply Chain Risk Management
+
+### Practitioner Note
+GOVERN is where policy meets practice. In federal environments, this maps directly to the **RMF Step 2 (Categorize)** and the **System Security Plan (SSP)** governance sections. For 2210/ISSO candidates, demonstrating GOVERN awareness is increasingly expected in interviews.
+
+---
+
+## IDENTIFY
+
+Key sub-functions:
+- **ID.AM** — Asset Management
+- **ID.RA** — Risk Assessment
+- **ID.SC** — Supply Chain Risk Management
+
+**Detection Engineering angle:** Without solid ID.AM, you can't scope a threat hunt. Knowing what systems are in scope, what OS versions exist, and what data flows between them is foundational.
+
+---
+
+## DETECT
+
+The most operationally relevant function for threat hunters and SOC analysts:
+
+- **DE.AE** — Adverse Event Analysis
+- **DE.CM** — Continuous Monitoring
+
+### Control examples:
+```
+DE.CM-01: Networks and network services are monitored
+DE.CM-03: Personnel activity and technology usage are monitored
+DE.CM-06: External service provider activities are monitored
+```
+
+These map directly to SIEM coverage requirements. When scoping a threat hunt program, trace your data sources back to DE.CM controls to demonstrate coverage depth.
+
+---
+
+## Mapping to RMF
+
+| RMF Step | CSF Function | Key Artifact |
+|---|---|---|
+| 1. Prepare | GOVERN, IDENTIFY | Risk management strategy |
+| 2. Categorize | IDENTIFY | System categorization (FIPS 199) |
+| 3. Select | PROTECT, DETECT | Control selection |
+| 4. Implement | PROTECT | Control implementation evidence |
+| 5. Assess | All | Security assessment report (SAR) |
+| 6. Authorize | GOVERN | ATO decision |
+| 7. Monitor | DETECT, RESPOND | ConMon reports |
+
+---
+
+## Interview Prep Notes
+
+Common ISSO/2210 interview questions related to CSF:
+
+1. "Walk me through how you'd use CSF 2.0 to prioritize security investments at a new agency."
+2. "What's the difference between a CSF Profile and a Tier?"
+3. "How does CSF 2.0 align with NIST SP 800-53?"
+
+**Quick answers:**
+- **Profile** = your current state vs target state, documented by function/category
+- **Tier** = how rigorous your risk management practice is (1=Partial → 4=Adaptive)
+- **SP 800-53** = the control catalog; CSF = the framework. CSF categories map to 800-53 controls via the NIST online mapping tool.

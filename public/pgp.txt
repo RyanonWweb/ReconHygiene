@@ -1,0 +1,8 @@
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+[PASTE YOUR EXPORTED PUBLIC KEY HERE]
+
+Run: gpg --armor --export security@reconhygiene.com
+Then replace this entire file content with the output.
+
+-----END PGP PUBLIC KEY BLOCK-----

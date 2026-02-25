@@ -1,0 +1,406 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import HuntCard from '../components/HuntCard.astro';
+import PostCard from '../components/PostCard.astro';
+import EmailCapture from '../components/EmailCapture.astro';
+import { getCollection } from 'astro:content';
+
+const hunts = (await getCollection('hunts', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const guides = (await getCollection('guides', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+---
+
+<SiteLayout title="Home" description="Threat hunting documentation, detection engineering projects, and practical security guides. Clean signals from an operator perspective.">
+
+  <!-- Hero -->
+  <section class="hero dot-grid">
+    <div class="container hero-inner">
+      <div class="hero-badge animate-fade-in-up">
+        <span class="status-dot"></span>
+        <span>Available for advisory engagements</span>
+      </div>
+
+      <h1 class="hero-headline animate-fade-in-up" style="animation-delay:0.08s">
+        Threat Hunting.<br />
+        <span class="hero-accent">Done with discipline.</span>
+      </h1>
+
+      <p class="hero-subline animate-fade-in-up" style="animation-delay:0.16s">
+        Documented hunt reports, detection engineering projects, and practical security guides — built for practitioners, written for clarity. This is the operational record, not the highlight reel.
+      </p>
+
+      <div class="hero-actions animate-fade-in-up" style="animation-delay:0.24s">
+        <a href="/hunts" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          View Hunt Reports
+        </a>
+        <a href="/about" class="btn btn-outline">About Me</a>
+        <a href="/contact" class="btn btn-ghost">Advisory Inquiry</a>
+      </div>
+    </div>
+
+    <!-- Animated grid lines -->
+    <div class="hero-grid-lines" aria-hidden="true">
+      <div class="h-line"></div><div class="h-line"></div><div class="h-line"></div>
+      <div class="v-line"></div><div class="v-line"></div><div class="v-line"></div>
+    </div>
+  </section>
+
+  <!-- Stats Strip -->
+  <section class="stats-strip">
+    <div class="container stats-inner">
+      <div class="stat-item">
+        <span class="stat-num">{hunts.length > 0 ? hunts.length + '+' : '10+'}</span>
+        <span class="stat-label">Hunt Reports</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num">MITRE ATT&CK</span>
+        <span class="stat-label">Aligned Methodology</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num">NIST / RMF</span>
+        <span class="stat-label">Framework Coverage</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num">2210</span>
+        <span class="stat-label">Target Series</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Hunts -->
+  {hunts.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Latest Hunt Reports</h2>
+            <p class="section-sub">Documented threat hunts with methodology, findings, and detection logic.</p>
+          </div>
+          <a href="/hunts" class="btn btn-ghost">All reports →</a>
+        </div>
+        <div class="content-grid stagger-children">
+          {hunts.map(hunt => <HuntCard hunt={hunt} />)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- What I Do -->
+  <section class="section what-section">
+    <div class="container">
+      <h2 class="section-title">What This Site Is</h2>
+      <p class="section-sub" style="max-width:60ch; margin-bottom:3rem">An operational record of security practice — built for credibility, not vanity. Every doc here represents actual work.</p>
+      <div class="what-grid stagger-children">
+        <div class="what-card glass">
+          <div class="what-icon">🔍</div>
+          <h3>Hunt Reports</h3>
+          <p>MITRE-aligned threat hunt documentation with hypotheses, scope, tooling, and detection rule output.</p>
+          <a href="/hunts" class="what-link">Browse hunts →</a>
+        </div>
+        <div class="what-card glass">
+          <div class="what-icon">🏗️</div>
+          <h3>Projects</h3>
+          <p>Detection engineering labs, cloud security builds, and portfolio case studies with architecture and outcomes.</p>
+          <a href="/projects" class="what-link">See projects →</a>
+        </div>
+        <div class="what-card glass">
+          <div class="what-icon">📋</div>
+          <h3>Guides</h3>
+          <p>Short, actionable security checklists and practical guides — built for the people doing the work.</p>
+          <a href="/guides" class="what-link">Read guides →</a>
+        </div>
+        <div class="what-card glass">
+          <div class="what-icon">📐</div>
+          <h3>Frameworks</h3>
+          <p>NIST CSF 2.0, RMF, and control mapping notes aligned to government and enterprise security requirements.</p>
+          <a href="/frameworks" class="what-link">View frameworks →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Guides -->
+  {guides.length > 0 && (
+    <section class="section" style="padding-top:0">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Security Guides</h2>
+            <p class="section-sub">Practical checklists and how-tos for practitioners.</p>
+          </div>
+          <a href="/guides" class="btn btn-ghost">All guides →</a>
+        </div>
+        <div class="content-grid stagger-children">
+          {guides.map(g => (
+            <PostCard
+              title={g.data.title}
+              href={`/guides/${g.id.replace(/\.mdx?$/, '')}`}
+              date={g.data.date}
+              summary={g.data.summary}
+              category={g.data.category}
+              tags={g.data.tags}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Email Capture -->
+  <section class="section-sm">
+    <div class="container">
+      <EmailCapture />
+    </div>
+  </section>
+
+  <!-- About Teaser -->
+  <section class="section-sm">
+    <div class="container about-teaser glass">
+      <div class="about-teaser-text">
+        <h2>The operator behind the reports.</h2>
+        <p>From operational background to cloud security engineering — this site is the documentation trail. I build detection systems, map controls, and hunt threats for a living.</p>
+        <a href="/about" class="btn btn-outline" style="margin-top:1rem">My full background →</a>
+      </div>
+      <div class="about-teaser-visual" aria-hidden="true">
+        <div class="terminal-window">
+          <div class="terminal-bar">
+            <span class="t-dot t-red"></span>
+            <span class="t-dot t-yellow"></span>
+            <span class="t-dot t-green"></span>
+            <span class="t-title">hunt_session.sh</span>
+          </div>
+          <div class="terminal-body">
+            <p><span class="t-prompt">$</span> ./run_hunt.sh --tactic lateral-movement</p>
+            <p class="t-output">[ INFO ] Loading hypothesis...</p>
+            <p class="t-output">[ INFO ] Scoping data sources...</p>
+            <p class="t-output t-cyan">[ HUNT ] Querying SIEM: 2.3M events</p>
+            <p class="t-output t-cyan">[ HUNT ] Clustering by process ancestry...</p>
+            <p class="t-yellow">[ ALERT ] Anomaly found: lsass.exe → cmd.exe</p>
+            <p class="t-output">[ LOG  ] Writing detection rule...</p>
+            <p class="t-green">[ DONE ] Report: lateral-movement-2025-01.md</p>
+            <p><span class="t-prompt">$</span><span class="cursor"></span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</SiteLayout>
+
+<style>
+  /* Hero */
+  .hero {
+    position: relative;
+    min-height: 88vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    padding: 6rem 1.5rem 4rem;
+    max-width: 900px;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 14px;
+    background: var(--cyan-dim);
+    border: 1px solid rgba(0,212,255,0.2);
+    border-radius: 999px;
+    font-size: 0.8rem;
+    color: var(--cyan);
+    font-weight: 500;
+    margin-bottom: 1.75rem;
+  }
+  .status-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--cyan);
+    animation: pulse-cyan 2s ease-in-out infinite;
+  }
+  .hero-headline {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 1.5rem;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+  .hero-accent {
+    background: linear-gradient(135deg, var(--cyan), #a855f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-subline {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    max-width: 62ch;
+    line-height: 1.7;
+    margin: 0 0 2.5rem;
+  }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+  /* Grid lines */
+  .hero-grid-lines {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .h-line, .v-line {
+    position: absolute;
+    opacity: 0.04;
+    background: var(--cyan);
+  }
+  .h-line { height: 1px; width: 100%; }
+  .h-line:nth-child(1) { top: 25%; }
+  .h-line:nth-child(2) { top: 50%; }
+  .h-line:nth-child(3) { top: 75%; }
+  .v-line { width: 1px; height: 100%; }
+  .v-line:nth-child(4) { left: 33%; }
+  .v-line:nth-child(5) { left: 66%; }
+  .v-line:nth-child(6) { right: 0; }
+
+  /* Stats */
+  .stats-strip {
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .stats-inner {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 1.75rem 1.5rem;
+    overflow-x: auto;
+  }
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 0 2.5rem;
+    flex-shrink: 0;
+  }
+  .stat-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--cyan);
+    white-space: nowrap;
+  }
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+  .stat-divider {
+    width: 1px;
+    height: 40px;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+
+  /* Section headers */
+  .section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    gap: 1rem;
+  }
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 0.25rem;
+  }
+  .section-sub {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  /* What grid */
+  .what-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+  .what-card {
+    padding: 1.75rem;
+    transition: transform 0.2s ease;
+  }
+  .what-card:hover { transform: translateY(-3px); }
+  .what-icon { font-size: 1.75rem; margin-bottom: 0.875rem; }
+  .what-card h3 { font-size: 1rem; font-weight: 600; margin: 0 0 0.5rem; }
+  .what-card p { font-size: 0.875rem; color: var(--text-muted); margin: 0 0 1rem; line-height: 1.6; }
+  .what-link { font-size: 0.8rem; color: var(--cyan); font-weight: 500; }
+
+  /* About teaser */
+  .about-teaser {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    padding: 3rem;
+    background: linear-gradient(135deg, rgba(110,64,201,0.05), rgba(0,0,0,0));
+    border-color: rgba(110,64,201,0.2);
+  }
+  .about-teaser-text h2 { font-size: 1.5rem; margin: 0 0 0.75rem; }
+  .about-teaser-text p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; margin: 0; }
+
+  /* Terminal window */
+  .terminal-window {
+    background: #080810;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.04);
+    border-bottom: 1px solid var(--border);
+  }
+  .t-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .t-red { background: #ff5f56; }
+  .t-yellow { background: #ffbd2e; }
+  .t-green { background: #27c93f; }
+  .t-title { color: var(--text-muted); font-size: 0.72rem; margin-left: 0.25rem; }
+  .terminal-body { padding: 1rem 1.25rem; line-height: 1.9; }
+  .terminal-body p { margin: 0; color: var(--text-muted); }
+  .t-prompt { color: var(--cyan); margin-right: 0.5rem; }
+  .t-output { color: #4b5563; }
+  .t-cyan { color: rgba(0,212,255,0.7); }
+  .t-yellow { color: var(--warning); }
+  .t-green { color: var(--success); }
+
+  /* What section */
+  .what-section { background: var(--surface); }
+
+  @media (max-width: 768px) {
+    .about-teaser { grid-template-columns: 1fr; gap: 2rem; }
+    .about-teaser-visual { display: none; }
+    .stat-item { padding: 0 1.5rem; }
+    .section-header { flex-direction: column; align-items: flex-start; }
+  }
+</style>

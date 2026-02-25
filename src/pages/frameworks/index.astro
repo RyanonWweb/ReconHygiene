@@ -1,0 +1,59 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+
+const frameworks = (await getCollection('frameworks', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<SiteLayout title="Frameworks" description="NIST CSF 2.0, RMF, and control mapping notes aligned to government and enterprise security requirements.">
+  <div class="page-header">
+    <div class="container">
+      <div class="breadcrumb"><a href="/">Home</a> / Frameworks</div>
+      <h1 class="page-title">Security Frameworks</h1>
+      <p class="page-sub">NIST CSF 2.0, RMF, STIG, and control mapping notes. Written for alignment, interviews, and implementation reference.</p>
+      <div class="page-meta-strip">
+        <span class="badge badge-cyan">{frameworks.length} Notes</span>
+        <span class="tag">NIST</span><span class="tag">RMF</span><span class="tag">CSF 2.0</span>
+      </div>
+    </div>
+  </div>
+  <section class="section">
+    <div class="container">
+      {frameworks.length === 0 ? (
+        <div class="empty-state glass">
+          <div class="empty-icon">📐</div>
+          <h3>Framework notes coming soon</h3>
+          <p>NIST and RMF reference content is in progress.</p>
+        </div>
+      ) : (
+        <div class="content-grid stagger-children">
+          {frameworks.map(f => (
+            <PostCard
+              title={f.data.title}
+              href={`/frameworks/${f.id.replace(/\.mdx?$/, '')}`}
+              date={f.data.date}
+              summary={f.data.summary}
+              category={f.data.standard}
+              tags={f.data.tags}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</SiteLayout>
+
+<style>
+  .page-header { border-bottom: 1px solid var(--border); background: var(--surface); padding: 4rem 0 2.5rem; }
+  .breadcrumb { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem; font-family: 'JetBrains Mono', monospace; }
+  .breadcrumb a { color: var(--text-muted); }
+  .breadcrumb a:hover { color: var(--cyan); }
+  .page-title { font-size: 2.25rem; font-weight: 700; margin: 0 0 0.75rem; }
+  .page-sub { color: var(--text-muted); font-size: 0.95rem; max-width: 65ch; line-height: 1.7; margin: 0 0 1.25rem; }
+  .page-meta-strip { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+  .empty-state { text-align: center; padding: 4rem 2rem; color: var(--text-muted); }
+  .empty-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .empty-state h3 { color: var(--text); margin-bottom: 0.5rem; }
+</style>

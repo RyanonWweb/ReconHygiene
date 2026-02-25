@@ -1,0 +1,144 @@
+---
+interface Props {
+  headline?: string;
+  subline?: string;
+  formspreeId?: string;
+}
+const {
+  headline = 'Get notified when new hunts drop.',
+  subline = 'No spam. Just signal.',
+  formspreeId = 'xaqdvyej',
+} = Astro.props;
+---
+
+<div class="email-capture glass">
+  <div class="capture-content">
+    <div class="capture-icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.57a16 16 0 0 0 6 6l1.27-.85a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </svg>
+    </div>
+    <div class="capture-text">
+      <h3>{headline}</h3>
+      <p>{subline}</p>
+    </div>
+  </div>
+
+  <form
+    class="capture-form"
+    action={`https://formspree.io/f/${formspreeId}`}
+    method="POST"
+    id="email-capture-form"
+  >
+    <input type="hidden" name="_subject" value="New ReconHygiene subscriber" />
+    <div class="capture-input-group">
+      <input
+        type="email"
+        name="email"
+        placeholder="you@company.com"
+        required
+        class="capture-input"
+        aria-label="Email address"
+        id="email-input"
+      />
+      <button type="submit" class="btn btn-primary capture-btn">
+        Subscribe
+      </button>
+    </div>
+    <p class="capture-fine">No spam. Unsubscribe anytime. Privacy-first.</p>
+  </form>
+</div>
+
+<style>
+  .email-capture {
+    padding: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    background: linear-gradient(135deg, rgba(0,212,255,0.05), rgba(110,64,201,0.05));
+    border-color: rgba(0,212,255,0.15);
+  }
+  .capture-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    flex: 1;
+  }
+  .capture-icon {
+    color: var(--cyan);
+    flex-shrink: 0;
+    margin-top: 2px;
+    opacity: 0.8;
+  }
+  .capture-text h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin: 0 0 0.25rem;
+  }
+  .capture-text p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .capture-form { flex-shrink: 0; min-width: 320px; }
+  .capture-input-group {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .capture-input {
+    flex: 1;
+    padding: 10px 14px;
+    background: var(--bg);
+    border: 1px solid var(--border-2);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 0.875rem;
+    outline: none;
+    transition: border-color 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .capture-input:focus {
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 3px var(--cyan-glow);
+  }
+  .capture-input::placeholder { color: var(--text-muted); }
+  .capture-btn { white-space: nowrap; }
+  .capture-fine {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin: 0;
+    text-align: center;
+  }
+
+  @media (max-width: 900px) {
+    .email-capture { flex-direction: column; gap: 1.5rem; }
+    .capture-form { min-width: 100%; width: 100%; }
+  }
+</style>
+
+<script>
+  const form = document.getElementById('email-capture-form') as HTMLFormElement;
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    try {
+      const res = await fetch(form.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
+      if (res.ok) {
+        btn.textContent = '✓ Subscribed!';
+        btn.style.background = '#22c55e';
+        form.reset();
+      } else {
+        btn.textContent = 'Error — try again';
+        btn.disabled = false;
+      }
+    } catch {
+      btn.textContent = 'Error — try again';
+      btn.disabled = false;
+    }
+  });
+</script>

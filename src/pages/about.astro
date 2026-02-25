@@ -1,0 +1,146 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+---
+
+<SiteLayout
+  title="About"
+  description="The operator background, career transition, and professional mission behind ReconHygiene.com."
+>
+  <div class="page-header">
+    <div class="container">
+      <div class="breadcrumb"><a href="/">Home</a> / About</div>
+      <h1 class="page-title">The Operator Behind the Reports</h1>
+      <p class="page-sub">From operational discipline to cloud security engineering — this site is the artifact record: documented labs, published hunt reports, and control mapping built in public.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container about-layout">
+
+      <!-- Main Content -->
+      <div class="about-main prose-dark">
+        <h2>Background</h2>
+        <p>
+          I'm a security practitioner with a background in operations — the kind of environment that demands precision, documentation, and clear-headed decision-making under pressure. That foundation translates directly into cybersecurity, where I'm building depth in threat hunting, detection engineering, and cloud security architecture.
+        </p>
+        <p>
+          This site is the artifact trail. Every hunt report, project case study, and guide represents real lab work and operational research — built in public, version-controlled, and repeatable.
+        </p>
+
+        <h2>What I Do</h2>
+        <p>I'm building documented capabilities across the following domains:</p>
+        <ul>
+          <li><strong>Threat Hunting</strong> — MITRE ATT&CK aligned, hypothesis-driven hunts across endpoint, network, and cloud telemetry</li>
+          <li><strong>Detection Engineering</strong> — SIEM detection rules, Sigma content, and KQL/SPL queries that reduce false-positive noise</li>
+          <li><strong>Cloud Security</strong> — AWS security posture, IAM analysis, CloudTrail/GuardDuty tuning, and landing zone hardening</li>
+          <li><strong>Compliance Alignment</strong> — NIST CSF 2.0, RMF, and STIG mapping for government and enterprise environments</li>
+        </ul>
+
+        <h2>Target Role</h2>
+        <p>
+          I'm targeting <strong>2210 (Information Systems Security Officer)</strong>, <strong>Threat Hunting</strong>, and <strong>Cloud Security Engineer</strong> roles in cleared or government-adjacent environments. This site is designed to provide the credibility artifact collection that certifications alone can't.
+        </p>
+
+        <h2>Documentation Philosophy</h2>
+        <p>
+          Security work that isn't documented might as well not have happened. Every hunt produces a report. Every project produces an artifact. This documentation discipline is the operational habit that makes security programs sustainable — and the standard I hold myself to here.
+        </p>
+
+        <h2>Advisory Services</h2>
+        <p>
+          Available for limited, scoped advisory engagements (time-boxed, NDA available). Focus areas:
+        </p>
+        <ul>
+          <li>Threat hunt program development for small teams</li>
+          <li>Cloud security posture review (AWS)</li>
+          <li>Detection engineering and SIEM tuning</li>
+          <li>NIST/RMF gap analysis and control mapping</li>
+        </ul>
+        <p>
+          <a href="/contact">Reach out via the contact page</a> to discuss scope and availability.
+        </p>
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="about-sidebar">
+        <div class="profile-card glass">
+          <div class="profile-avatar" aria-hidden="true">
+            <div class="avatar-inner">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="color:var(--cyan)">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+              </svg>
+            </div>
+          </div>
+          <h3 class="profile-name">ReconHygiene</h3>
+          <p class="profile-role">Security Practitioner</p>
+          <div class="profile-badges">
+            <span class="badge badge-cyan">Threat Hunting</span>
+            <span class="badge badge-violet">Cloud Security</span>
+            <span class="badge badge-gray">2210 Target</span>
+          </div>
+          <div class="profile-links">
+            <a href="/contact" class="btn btn-primary" style="width:100%;justify-content:center">Advisory Inquiry</a>
+          </div>
+        </div>
+
+        <div class="skills-card glass">
+          <h4 class="sidebar-title">Focus Areas</h4>
+          <ul class="skill-list">
+            <li><span class="skill-dot"></span>Threat Hunting</li>
+            <li><span class="skill-dot"></span>Detection Engineering</li>
+            <li><span class="skill-dot"></span>Cloud Security (AWS)</li>
+            <li><span class="skill-dot"></span>SIEM / EDR Operations</li>
+            <li><span class="skill-dot"></span>NIST / RMF / STIG</li>
+            <li><span class="skill-dot"></span>IAM &amp; Privilege Analysis</li>
+          </ul>
+        </div>
+
+        <div class="skills-card glass">
+          <h4 class="sidebar-title">Cert Targets</h4>
+          <ul class="skill-list">
+            <li><span class="cert-dot cert-done"></span>Security+</li>
+            <li><span class="cert-dot cert-progress"></span>AWS SAA</li>
+            <li><span class="cert-dot cert-progress"></span>GCIA / GCIH</li>
+          </ul>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+</SiteLayout>
+
+<style>
+  .page-header { border-bottom: 1px solid var(--border); background: var(--surface); padding: 4rem 0 2.5rem; }
+  .breadcrumb { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem; font-family: 'JetBrains Mono', monospace; }
+  .breadcrumb a { color: var(--text-muted); }
+  .breadcrumb a:hover { color: var(--cyan); }
+  .page-title { font-size: 2.25rem; font-weight: 700; margin: 0 0 0.75rem; }
+  .page-sub { color: var(--text-muted); font-size: 0.95rem; max-width: 65ch; line-height: 1.7; margin: 0; }
+
+  .about-layout {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 4rem;
+    align-items: start;
+  }
+  .about-sidebar { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 1.25rem; }
+
+  .profile-card { padding: 1.75rem; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.75rem; }
+  .profile-avatar { width: 72px; height: 72px; border-radius: 50%; background: var(--cyan-dim); border: 2px solid rgba(0,212,255,0.25); display: flex; align-items: center; justify-content: center; }
+  .avatar-inner { display: flex; }
+  .profile-name { font-size: 1.1rem; font-weight: 700; margin: 0; }
+  .profile-role { font-size: 0.82rem; color: var(--text-muted); margin: 0; }
+  .profile-badges { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; }
+  .profile-links { width: 100%; margin-top: 0.25rem; }
+
+  .skills-card { padding: 1.25rem; }
+  .sidebar-title { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin: 0 0 0.875rem; }
+  .skill-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.6rem; }
+  .skill-list li { display: flex; align-items: center; gap: 0.6rem; font-size: 0.875rem; color: var(--text-dim); }
+  .skill-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); flex-shrink: 0; }
+  .cert-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+  .cert-done { background: var(--success); }
+  .cert-progress { background: var(--warning); opacity: 0.7; }
+
+  @media (max-width: 900px) { .about-layout { grid-template-columns: 1fr; } .about-sidebar { position: static; } }
+</style>

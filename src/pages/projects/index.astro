@@ -1,0 +1,54 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<SiteLayout title="Projects" description="Detection engineering labs, cloud security builds, and portfolio case studies with full architecture and outcomes.">
+  <div class="page-header">
+    <div class="container">
+      <div class="breadcrumb"><a href="/">Home</a> / Projects</div>
+      <h1 class="page-title">Portfolio Projects</h1>
+      <p class="page-sub">Detection engineering labs, cloud security builds, and hands-on case studies. Each project includes architecture, tooling, and documented outcomes.</p>
+      <span class="badge badge-violet">{projects.length} Projects</span>
+    </div>
+  </div>
+  <section class="section">
+    <div class="container">
+      {projects.length === 0 ? (
+        <div class="empty-state glass">
+          <div class="empty-icon">🏗️</div>
+          <h3>Projects coming soon</h3>
+          <p>Case studies are in progress. Check back shortly.</p>
+        </div>
+      ) : (
+        <div class="content-grid stagger-children">
+          {projects.map(p => (
+            <PostCard
+              title={p.data.title}
+              href={`/projects/${p.id.replace(/\.mdx?$/, '')}`}
+              date={p.data.date}
+              summary={p.data.summary}
+              tags={[...p.data.stack, ...p.data.tags].slice(0, 4)}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</SiteLayout>
+
+<style>
+  .page-header { border-bottom: 1px solid var(--border); background: var(--surface); padding: 4rem 0 2.5rem; }
+  .breadcrumb { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem; font-family: 'JetBrains Mono', monospace; }
+  .breadcrumb a { color: var(--text-muted); }
+  .breadcrumb a:hover { color: var(--cyan); }
+  .page-title { font-size: 2.25rem; font-weight: 700; margin: 0 0 0.75rem; }
+  .page-sub { color: var(--text-muted); font-size: 0.95rem; max-width: 65ch; line-height: 1.7; margin: 0 0 1.25rem; }
+  .empty-state { text-align: center; padding: 4rem 2rem; color: var(--text-muted); }
+  .empty-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .empty-state h3 { color: var(--text); margin-bottom: 0.5rem; }
+</style>
