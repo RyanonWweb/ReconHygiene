@@ -5,9 +5,9 @@
 [build.environment]
   NODE_VERSION = "20"
 
-# Redirect bare domain → www (or flip if you prefer apex)
-# [[redirects]]
-#   from   = "https://www.reconhygiene.com/*"
-#   to     = "https://reconhygiene.com/:splat"
-#   status = 301
-#   force  = true
+# Redirect www → apex
+[[redirects]]
+  from   = "https://www.reconhygiene.com/*"
+  to     = "https://reconhygiene.com/:splat"
+  status = 301
+  force  = true

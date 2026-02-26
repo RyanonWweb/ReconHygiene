@@ -78,17 +78,7 @@ import SiteLayout from '../layouts/SiteLayout.astro';
         This is a personal/professional site and does not currently offer a formal bug bounty. However, significant findings will be acknowledged publicly (with reporter consent) and we will credit your work.
       </p>
 
-      <h2>PGP Public Key</h2>
-      <p>
-        Sensitive disclosures may be encrypted to the site operator's PGP key. The full ASCII-armored public key is available at
-        <a href="/pgp.txt">/pgp.txt</a>.
-      </p>
-      <div class="pgp-block">
-        <div class="pgp-label">Fingerprint</div>
-        <code class="pgp-fingerprint" id="pgp-fp">XXXX XXXX XXXX XXXX XXXX  XXXX XXXX XXXX XXXX XXXX</code>
-        <button class="pgp-copy" onclick="navigator.clipboard.writeText(document.getElementById('pgp-fp').textContent.trim()); this.textContent='Copied!'" title="Copy fingerprint">Copy</button>
-      </div>
-      <p>Key UID: <code>security@reconhygiene.com</code> — verifiable on <a href="https://keys.openpgp.org" target="_blank" rel="noopener">keys.openpgp.org</a>.</p>
+
 
       <h2>Machine-Readable Policy</h2>
       <p>
@@ -124,30 +114,5 @@ import SiteLayout from '../layouts/SiteLayout.astro';
   .page-title { font-size: 2.25rem; font-weight: 700; margin: 0 0 0.75rem; }
   .page-sub { color: var(--text-muted); font-size: 0.95rem; max-width: 65ch; line-height: 1.7; margin: 0; }
   .policy-updated { font-size: 0.82rem; color: var(--text-muted); }
-  .pgp-block {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-    background: var(--surface);
-    border: 1px solid var(--border-2);
-    border-radius: 8px;
-    padding: 0.875rem 1rem;
-    margin: 0.75rem 0;
-  }
-  .pgp-label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; flex-shrink: 0; }
-  .pgp-fingerprint { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--cyan); letter-spacing: 0.04em; flex: 1; }
-  .pgp-copy {
-    font-size: 0.72rem;
-    padding: 4px 10px;
-    background: rgba(0,212,255,0.08);
-    border: 1px solid rgba(0,212,255,0.2);
-    border-radius: 6px;
-    color: var(--cyan);
-    cursor: pointer;
-    font-family: 'JetBrains Mono', monospace;
-    transition: background 0.2s;
-    flex-shrink: 0;
-  }
-  .pgp-copy:hover { background: rgba(0,212,255,0.15); }
+
 </style>

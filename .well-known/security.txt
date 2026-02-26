@@ -1,0 +1,7 @@
+Contact: mailto:Reconhygieneops@protonmail.com
+Expires: 2028-11-11T11:11:11Z
+Preferred-Languages: en
+Policy: https://reconhygiene.com/SECURITY.md
+Acknowledgments: https://reconhygiene.com/SECURITY.md
+Hiring: https://reconhygiene.com
+Canonical: https://reconhygiene.com/.well-known/security.txt
